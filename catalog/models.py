@@ -12,6 +12,10 @@ class Genre(models.Model):
     """String for representing the Model object."""
     return self.name
   
+  def get_absolute_url(self):
+      return reverse("genre-detail", args=[str(self.id)])
+  
+  
 
 class Language(models.Model):
   name = models.CharField(max_length=200, help_text="Enter the book's natural language (e.g. English, French, Japanese etc.)")

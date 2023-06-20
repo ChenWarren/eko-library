@@ -20,3 +20,9 @@ urlpatterns += [
     path('author/<int:pk>/update/', views.AuthorUpdate.as_view(), name='author-update'),
     path('author/<int:pk>/delete/', views.AuthorDelete.as_view(), name='author-delete'),
 ]
+
+urlpatterns += [
+    path('genre/<int:pk>', views.GenreDetailView.as_view(), name='genre-detail'),
+    path('genre/create/', views.GenreCreate.as_view(), name='genre-create'),
+]
+

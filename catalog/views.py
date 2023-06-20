@@ -54,6 +54,10 @@ class AuthorDetailView(generic.DetailView):
   model = Author
 
 
+class GenreDetailView(generic.DetailView):
+  model = Genre
+
+
 class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
   model = BookInstance
   template_name = 'catalog/bookinstance_list_borrowed_user.html'
@@ -115,3 +119,9 @@ class AuthorUpdate(UpdateView):
 class AuthorDelete(DeleteView):
   model = Author
   success_url = reverse_lazy('authors')
+
+
+class GenreCreate(CreateView):
+  model = Genre
+  fields = ['name']
+
