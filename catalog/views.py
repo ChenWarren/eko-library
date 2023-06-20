@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.auth.decorators import login_required, permission_required 
 
 from .models import Book, Author, BookInstance, Genre
-from catalog.forms import RenewBookForm
+from catalog.forms import RenewBookModeForm
 
 # Create your views here.
 def index(request):
@@ -81,16 +81,16 @@ def renew_book_librarian(request, pk):
   book_instance = get_object_or_404(BookInstance, pk=pk)
 
   if request.method == 'POST':
-    form = RenewBookForm(request.POST)
+    form = RenewBookModeForm(request.POST)
 
     if form.is_valid():
-      book_instance.due_back = form.cleaned_data['renewal_date']
+      book_instance.due_back = form.cleaned_data['due_back']
       book_instance.save()
       return HttpResponseRedirect(reverse('all-borrowed'))
 
   else:
     proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
-    form = RenewBookForm(initial={'renewal_date': proposed_renewal_date})
+    form = RenewBookModeForm(initial={'due_back': proposed_renewal_date})
 
   context = {
     'form': form,
